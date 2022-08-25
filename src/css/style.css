@@ -18,21 +18,32 @@ body {
   position: fixed;
   z-index: 1;
   display: flex;
-  background-color: blue;
+  background-color: rgb(74, 8, 74);
   width: 100%;
 }
 
 .gallery-container {
-  padding: 80px 16px;
+  padding: 86px 16px;
 }
 
 .search-form {
+  display: flex;
   margin: 0 auto;
-  padding: 10px;
+  padding: 16px;
 }
 .search-form input {
   margin: 0;
+  padding: 8px;
+  border: none;
+  border-radius: 5px 0 0 5px;
   font-size: 24px;
+}
+
+.btn-search {
+  display: flex;
+  align-items: center;
+  border: none;
+  border-radius: 0 5px 5px 0;
 }
 
 .gallery {
@@ -57,7 +68,7 @@ body {
 .gallery-item {
   display: block;
   text-decoration: none;
-  color: black;
+  color: #212121;
 }
 
 img {
