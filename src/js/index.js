@@ -1,7 +1,8 @@
-import axios from 'axios';
 import SimpleLightbox from 'simplelightbox';
+
+import getPhotos from './getPhotos';
 import 'simplelightbox/dist/simple-lightbox.min.css';
-import './css/style.css';
+import '../css/style.css';
 
 const form = document.querySelector('#search-form');
 const input = document.querySelector('input');
@@ -19,19 +20,6 @@ form.addEventListener('submit', e => {
     console.log(data);
   });
 });
-
-const API_KEY = '29499204-a77a5df2d9e32bd170e84cd3d';
-async function getPhotos(query) {
-  try {
-    const response = await axios.get(
-      `https://pixabay.com/api/?key=${API_KEY}&q=${query}&image_type=photo&orientation=horizontal&safesearch=true&page=1&per_page=40`
-    );
-    console.log(response);
-    return response.data;
-  } catch (error) {
-    console.error(error);
-  }
-}
 
 function listImages(photos) {
   console.log(photos);
@@ -72,13 +60,6 @@ function listImages(photos) {
 let lightbox = new SimpleLightbox('.gallery a', {
   captionsData: 'alt',
   captionDelay: 250,
-  // sourceAttr: 'srcset'
 });
 
-// webformatURL - посилання на маленьке зображення для списку карток.
-// largeImageURL - посилання на велике зображення.
-// tags - рядок з описом зображення. Підійде для атрибуту alt.
-// likes - кількість лайків.
-// views - кількість переглядів.
-// comments - кількість коментарів.
-// downloads - кількість завантажень
+
