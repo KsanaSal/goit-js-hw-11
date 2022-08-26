@@ -6,16 +6,18 @@ import '../css/style.css';
 
 const form = document.querySelector('#search-form');
 const input = document.querySelector('input');
-const btnSearch = document.querySelector('button');
+const btnMore = document.querySelector('.load-more');
 const gallery = document.querySelector('.gallery');
+
+let page = 1;
 
 form.addEventListener('submit', e => {
   e.preventDefault();
-  console.dir(e);
-  console.dir(input);
-  console.log(input.value);
+  // console.dir(e);
+  // console.dir(input);
+  // console.log(input.value);
   gallery.innerHTML = '';
-  getPhotos(input.value).then(data => {
+  getPhotos(input.value, page).then(data => {
     listImages(data.hits);
     console.log(data);
   });
@@ -53,7 +55,7 @@ function listImages(photos) {
       `;
     })
     .join('');
-  gallery.insertAdjacentHTML('afterbegin', images);
+  gallery.insertAdjacentHTML('beforeend', images);
   lightbox.refresh();
 }
 
@@ -61,5 +63,11 @@ let lightbox = new SimpleLightbox('.gallery a', {
   captionsData: 'alt',
   captionDelay: 250,
 });
-
-
+// console.log(btnMore);
+btnMore.addEventListener('click', () => {
+  page += 1;
+  getPhotos(input.value, page).then(data => {
+    listImages(data.hits);
+    console.log(data);
+  });
+})

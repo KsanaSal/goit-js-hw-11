@@ -11,6 +11,7 @@ body {
   -moz-osx-font-smoothing: grayscale;
   background-color: #fafafa;
   color: #212121;
+  font-size: 18px;
   line-height: 1.5;
 }
 
@@ -18,7 +19,7 @@ body {
   position: fixed;
   z-index: 1;
   display: flex;
-  background-color: rgb(74, 8, 74);
+  background-color: #4a084a;
   width: 100%;
 }
 
@@ -39,6 +40,11 @@ body {
   font-size: 24px;
 }
 
+.search-form input:focus-visible{
+  border: none;
+  outline: none;
+}
+
 .btn-search {
   display: flex;
   align-items: center;
@@ -49,7 +55,7 @@ body {
 .gallery {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-  grid-gap: 12px;
+  grid-gap: 20px;
   justify-content: center;
   padding: 0;
   list-style: none;
@@ -86,7 +92,7 @@ img {
 .info {
   display: flex;
   justify-content: space-around;
-  background-color: antiquewhite;
+  background-color: #faebd7;
   width: 100%;
 }
 
@@ -94,4 +100,30 @@ img {
   margin: 0;
   padding: 8px;
   text-align: center;
+}
+
+.load-more {
+  display: flex;
+  justify-content: center;
+  margin: 0 auto;
+  margin-bottom: 30px;
+  padding: 8px;
+  min-width: 150px;
+  background-color: #faebd7;
+  border: 1px solid #4a084a;
+  border-radius: 4px;
+  font-size: 24px;
+  color: #212121;
+  transition: background-color var(--animation-duration) var(--timing-function),
+    color var(--animation-duration) var(--timing-function);
+  /* text-align: center; */
+}
+
+.load-more:hover {
+  background-color: #4a084a;
+  color: #faebd7;
+}
+
+.hidden {
+display: none;
 }
