@@ -32,13 +32,16 @@ body {
 }
 
 .search-form {
+  position: relative;
   display: flex;
   margin: 0 auto;
   padding: 16px;
 }
+
 .search-form input {
   margin: 0;
   padding: 8px;
+  padding-right: 20px;
   border: none;
   border-radius: 5px 0 0 5px;
   font-size: 24px;
@@ -54,6 +57,34 @@ body {
   align-items: center;
   border: none;
   border-radius: 0 5px 5px 0;
+}
+.btn-search span {
+  color: #212121;
+}
+
+.search-form input:placeholder-shown ~ .btn-cleaner {
+  opacity: 0;
+  pointer-events: none;
+}
+
+.btn-cleaner {
+  position: absolute;
+  border: none;
+  display: block;
+  width: 30px;
+  height: 30px;
+  color: #212121;
+  line-height: 16px;
+  font-size: 28px;
+  border-radius: 50%;
+  top: 0;
+  bottom: 0;
+  right: 60px;
+  margin: auto;
+  padding: 0;
+  outline: none;
+  cursor: pointer;
+  transition: 0.1s;
 }
 
 .gallery {
