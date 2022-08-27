@@ -3,6 +3,10 @@
   --animation-duration: 250ms;
 }
 
+html {
+  scroll-behavior: smooth;
+}
+
 body {
   margin: 0;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen,
@@ -124,6 +128,30 @@ img {
   color: #faebd7;
 }
 
-.hidden {
-display: none;
+
+
+#myBtn {
+  display: none;
+  position: fixed;
+  bottom: 35px;
+  right: 35px;
+  z-index: 1;
+  /* font-size: 30px; */
+  border: none;
+  outline: none;
+  background-color: #4a084a;
+  color: #faebd7;
+  cursor: pointer;
+  padding: 0;
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+}
+
+#myBtn:hover {
+  background-color: #601282;
+}
+
+#myBtn span {
+  font-size: 50px;
 }

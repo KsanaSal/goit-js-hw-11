@@ -1,33 +1,54 @@
 import SimpleLightbox from 'simplelightbox';
-
+import { Notify } from 'notiflix/build/notiflix-notify-aio';
 import getPhotos from './getPhotos';
 import 'simplelightbox/dist/simple-lightbox.min.css';
 import '../css/style.css';
 
+// Selection of elements
 const form = document.querySelector('#search-form');
 const input = document.querySelector('input');
 const btnMore = document.querySelector('.load-more');
 const gallery = document.querySelector('.gallery');
+const myButton = document.getElementById('myBtn');
 
+// Creation constans
+const PER_PAGE = 40;
 let page = 1;
 
-form.addEventListener('submit', e => {
-  e.preventDefault();
-  // console.dir(e);
-  // console.dir(input);
-  // console.log(input.value);
-  gallery.innerHTML = '';
-  getPhotos(input.value, page).then(data => {
-    listImages(data.hits);
-    console.log(data);
-  });
+// Add styles
+btnMore.style.visibility = 'hidden';
+Notify.init({
+  fontSize: '16px',
+  width: '350px',
 });
 
+// Processing promis
+function addPhotos(value, page) {
+  getPhotos(value, page).then(data => {
+    if (data.totalHits > 0) {
+      Notify.success(`Hooray! We found ${data.totalHits} images.`);
+    } else
+      Notify.failure(
+        `Sorry, there are no images matching your search query. Please try again.`
+      );
+    listImages(data.hits);
+    if (data.totalHits > PER_PAGE * page) {
+      btnMore.style.visibility = 'visible';
+    }
+  });
+}
+
+// Listening to form
+form.addEventListener('submit', e => {
+  e.preventDefault();
+  gallery.innerHTML = '';
+  addPhotos(input.value, page);
+});
+
+// Create blok photos in html
 function listImages(photos) {
-  console.log(photos);
   const images = photos
     .map(photo => {
-      // console.log(photo);
       return `
         <a class="gallery-item" href="${photo.largeImageURL}">
         <div class="photo-card">
@@ -59,15 +80,56 @@ function listImages(photos) {
   lightbox.refresh();
 }
 
+// Working with SimpleLightbox
 let lightbox = new SimpleLightbox('.gallery a', {
   captionsData: 'alt',
   captionDelay: 250,
 });
-// console.log(btnMore);
+
+// Listening to button-more
 btnMore.addEventListener('click', () => {
   page += 1;
-  getPhotos(input.value, page).then(data => {
-    listImages(data.hits);
-    console.log(data);
-  });
-})
+  getPhotos(input.value, page)
+    .then(data => {
+      listImages(data.hits);
+      if (data.totalHits <= PER_PAGE * page) {
+        btnMore.style.visibility = 'hidden';
+        Notify.info(
+          `We're sorry, but you've reached the end of search results.`
+        );
+      }
+      const { height: cardHeight } = document
+        .querySelector('.gallery')
+        .firstElementChild.getBoundingClientRect();
+    })
+    .finally(() => {
+      const { height: cardHeight } = document
+        .querySelector('.gallery')
+        .firstElementChild.getBoundingClientRect();
+
+      window.scrollBy({
+        top: cardHeight * 2,
+      });
+    });
+});
+
+// When the user scrolls down 20px from the top of the document, show the myButton
+window.onscroll = function () {
+  scrollFunction();
+};
+
+function scrollFunction() {
+  if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
+    myButton.style.display = 'block';
+  } else {
+    myButton.style.display = 'none';
+  }
+}
+
+// When the user clicks on the myButton, scroll to the top of the document
+function topFunction() {
+  document.body.scrollTop = 0;
+  document.documentElement.scrollTop = 0;
+}
+
+myButton.addEventListener('click', topFunction);
