@@ -44,7 +44,7 @@ body {
   font-size: 24px;
 }
 
-.search-form input:focus-visible{
+.search-form input:focus-visible {
   border: none;
   outline: none;
 }
@@ -120,7 +120,6 @@ img {
   color: #212121;
   transition: background-color var(--animation-duration) var(--timing-function),
     color var(--animation-duration) var(--timing-function);
-  /* text-align: center; */
 }
 
 .load-more:hover {
@@ -128,15 +127,12 @@ img {
   color: #faebd7;
 }
 
-
-
 #myBtn {
   display: none;
   position: fixed;
   bottom: 35px;
   right: 35px;
   z-index: 1;
-  /* font-size: 30px; */
   border: none;
   outline: none;
   background-color: #4a084a;
@@ -153,5 +149,6 @@ img {
 }
 
 #myBtn span {
+  line-height: normal;
   font-size: 50px;
 }
