@@ -20,6 +20,7 @@ btnMore.style.visibility = 'hidden';
 Notify.init({
   fontSize: '16px',
   width: '350px',
+  borderRadius: '10px',
 });
 
 // Processing promis
@@ -42,7 +43,16 @@ function addPhotos(value, page) {
 form.addEventListener('submit', e => {
   e.preventDefault();
   gallery.innerHTML = '';
-  addPhotos(input.value, page);
+  page = 1;
+  btnMore.style.visibility = 'hidden';
+  if (!!input.value.trim()) {
+    addPhotos(input.value.trim(), page);
+  } else {
+    Notify.warning('Please put the text in search field', {
+      position: 'center-top',
+      distance: '80px',
+    });
+  }
 });
 
 // Create blok photos in html
